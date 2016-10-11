@@ -1,0 +1,21 @@
+- In the specific folders for each algorithm
+-   Python function
+-   Text file with pseudocode
+-     Analysis of asymptotic runtimes:
+-   Input parameter: Array of ints
+-   Return value: Single int
+- Top level folder
+-   (0) Python main code
+-     (1) Run tests on each function
+-     (2) Generate random input arrays for experimental analysis
+-       Run random arrays through each function
+-       I/O and array generation aren't clocked
+-     (3) Run MSS_Problems.txt through each function
+-     Spit out results into single results files
+-   4 total python files in top level
+-   8 total python files includes algorithm specific functions
+
+- By Thursday night
+- Alex: Alg 1 and 3
+- Kyle: Alg 2 and 4
+- Cash: Top level code
