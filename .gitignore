@@ -1,1 +1,5 @@
+# Apple Specific
+.DS_Store
+
+# Python related
 *.pyc
