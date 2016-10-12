@@ -72,8 +72,12 @@ def main():
     solveProblems(algNum)
     runExperimentalAnalysis(algNum)
 
+    # dummy call just to demo how to pass args to and get return values
     myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
-    print "returnVal = " + str(testAlg(myList))
+    retVal, retList = testAlg(myList)
+
+    print "retVal = " + str(retVal)
+    print "retList = " + str(retList)
 
 # ------------------------------------------------------------
 if __name__ == "__main__":
