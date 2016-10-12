@@ -24,37 +24,132 @@ import alg2
 sys.path.insert(0, "./../divide-and-conquer")
 import alg3
 
-#sys.path.insert(0, "./../linear-time")
-#import alg4
+sys.path.insert(0, "./../linear-time")
+import alg4
 
-def runTestCases(algNum):
+def printAlgorithmIO(inputList, outputList, outputValue, outFil):
 #-------------------------------------------------------------------------------
-# Description:      Runs test cases using a given algorithm.
-# Receives:         Integer value between 1 and 4 inclusive.
+# Description:      Prints the results from a call to an algorithm function.
+# Receives:         inputList, outputList, outputValue, outFil
+# Returns:          Nothing.
+# Preconditions:    Inputs are expected to be non-null.
+# ------------------------------------------------------------------------------
+
+    outFil.write("input array:      " + str(inputList))
+    outFil.write("\n")
+    outFil.write("max sum subarray: " + str(outputList))
+    outFil.write("\n")
+    outFil.write("maximum sum:      " + str(outputValue))
+    outFil.write("\n")
+    outFil.write("\n")
+    
+
+def runInputsThru(inFil, outFil):
+#-------------------------------------------------------------------------------
+# Description:      Does the real work of running inputs through algorithms.
+# Receives:         File handles with input files to draw cases from and output files to write them to.
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
-    print "runTestCases" + str(algNum)
+
+    # read contents of test problems into list of lists
+    testLists = []
+    for line in inFil:
+        nextList = []
+        nextLine = line.rstrip('\r\n').replace('[', '').replace(']', '').replace(',', ' ').split()
+        if len(nextLine) > 0:
+            testLists.append([int(i) for i in nextLine])
+
+    # iterate through input for each algorithm
+    for i in range(1, 6): # replace 6 with 5 later
+        if i == 1:
+            outFil.write("---- enumeration ----------------------------------")
+            outFil.write("\n")
+            outFil.write("\n")
+
+            #for j in range(len(testLists)):
+            #    retVal, retList = insertfunctionname(testLists[j])
+            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+                
+        elif i == 2:
+            outFil.write("---- better-enumeration ---------------------------")
+            outFil.write("\n")
+            outFil.write("\n")
+
+            #for j in range(len(testLists)):
+            #    retVal, retList = insertfunctionname(testLists[j])
+            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+                
+        elif i == 3:
+            outFil.write("---- divide-and-conquer----------------------------")
+            outFil.write("\n")
+            outFil.write("\n")
+
+            #for j in range(len(testLists)):
+            #    retVal, retList = insertFunctionName(testLists[j])
+            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+                
+        elif i == 4:
+            outFil.write("---- linear-time ----------------------------------")
+            outFil.write("\n")
+            outFil.write("\n")
+
+            #for j in range(len(testLists)):
+            #    retVal, retList = insertFunctionName(testLists[j])
+            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+                
+        else:
+            outFil.write("---- test -----------------------------------------")
+            outFil.write("\n")
+            outFil.write("\n")
+
+            for j in range(len(testLists)):
+                retVal, retList = testAlg(testLists[j])
+                printAlgorithmIO(testLists[j], retList, retVal, outFil)
 
 
-def solveProblems(algNum):
+def runTestCases():
 #-------------------------------------------------------------------------------
-# Description:      Solves assigned problmes using a given algorithm.
-# Receives:         Integer value between 1 and 4 inclusive.
+# Description:      Runs test cases.
+# Receives:         Nothing.
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
-    print "solveProblems" + str(algNum)
 
+    inFil = open("MSS_TestProblems.txt", 'r')
+    outFil = open("MSS_TestResults.txt", 'w')
 
-def runExperimentalAnalysis(algNum):
+    runInputsThru(inFil, outFil)
+
+    inFil.close()
+    outFil.close()
+
+                
+def solveProblems():
 #-------------------------------------------------------------------------------
-# Description:      Runs experimental analysis on a given algorithm.
-# Receives:         Integer value between 1 and 4 inclusive.
+# Description:      Solves assigned problems.
+# Receives:         Nothing.
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
-    print "runExperimentalAnalysis" + str(algNum)
+
+    inFil = open("MSS_Problems.txt", 'r')
+    outFil = open("MSS_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil)
+
+    inFil.close()
+    outFil.close()
+
+
+def runExperimentalAnalysis():
+#-------------------------------------------------------------------------------
+# Description:      Runs experimental analysis.
+# Receives:         Nothing.
+# Returns:          Nothing.
+# Preconditions:    None.
+# ------------------------------------------------------------------------------
+    print "runExperimentalAnalysis"
 
 
 def main():
@@ -65,19 +160,17 @@ def main():
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
-    print "main"
     
-    algNum = 1
-    runTestCases(algNum)
-    solveProblems(algNum)
-    runExperimentalAnalysis(algNum)
+    runTestCases()
+    solveProblems()
+    #runExperimentalAnalysis
 
     # dummy call just to demo how to pass args to and get return values
-    myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
-    retVal, retList = testAlg(myList)
+    #myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
+    #retVal, retList = testAlg(myList)
 
-    print "retVal = " + str(retVal)
-    print "retList = " + str(retList)
+    #print "retVal = " + str(retVal)
+    #print "retList = " + str(retList)
 
 # ------------------------------------------------------------
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
-def testAlg(list):
+def testAlg(inputList):
 
    # print list (single line with brackets and such)
-   print list
+   #print inputList
 
    # print list (one value per line)
-   for i in range(len(list)):
-       print list[i]
+   #for i in range(len(inputList)):
+   #    print inputList[i]
 
    # return dummy answers
    retVal = 187
