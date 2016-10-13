@@ -10,6 +10,7 @@
 #                       'flip' servers.
 
 import datetime
+import random
 import sys
 
 import testAlg # remove before turning in
@@ -26,6 +27,27 @@ import alg3
 
 sys.path.insert(0, "./../linear-time")
 import alg4
+
+def randomList(size):
+#-------------------------------------------------------------------------------
+# Description:      Generates list of integers of length=size.
+#                   Integers will be between -99 and 99 (inclusive) and at
+#                   least one of them will be positive (1 to 99).
+# Receives:         Size of list to randomly generate.
+# Returns:          List.
+# Preconditions:    Size >= 1.
+# ------------------------------------------------------------------------------
+    posFound = False
+    while not (posFound):
+        retList = []
+        for i in range(0, size):
+            retList.append(random.randint(-99, 99))
+        for i in range(0, size):
+            if retList[i] > 0:
+                posFound = True
+                break
+    return retList
+
 
 def printAlgorithmIO(inputList, outputList, outputValue, outFil):
 #-------------------------------------------------------------------------------
@@ -47,7 +69,8 @@ def printAlgorithmIO(inputList, outputList, outputValue, outFil):
 def runInputsThru(inFil, outFil):
 #-------------------------------------------------------------------------------
 # Description:      Does the real work of running inputs through algorithms.
-# Receives:         File handles with input files to draw cases from and output files to write them to.
+# Receives:         File handles with input files to draw cases from and output
+#                   files to write them to.
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
@@ -56,7 +79,8 @@ def runInputsThru(inFil, outFil):
     testLists = []
     for line in inFil:
         nextList = []
-        nextLine = line.rstrip('\r\n').replace('[', '').replace(']', '').replace(',', ' ').split()
+        nextLine = line.rstrip('\r\n').replace('[', '')
+        nextLine = nextLine.replace(']', '').replace(',', ' ').split()
         if len(nextLine) > 0:
             testLists.append([int(i) for i in nextLine])
 
@@ -164,6 +188,11 @@ def main():
     runTestCases()
     solveProblems()
     #runExperimentalAnalysis
+
+    randomList(2)
+    randomList(4)    
+    randomList(8)
+    randomList(16)
 
     # dummy call just to demo how to pass args to and get return values
     #myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
