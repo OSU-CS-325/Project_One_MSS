@@ -1,0 +1,11 @@
+algorithm,n,averageRunTime,allRunTimes
+test-debug,10,6.3,[5  5  5  5  6  6  6  6  6  13]
+test-debug,20,5.6,[5  5  5  5  5  6  6  6  6  7]
+test-debug,30,5.6,[5  5  5  5  6  6  6  6  6  6]
+test-debug,40,5.5,[5  5  5  5  5  6  6  6  6  6]
+test-debug,50,5.8,[5  5  6  6  6  6  6  6  6  6]
+test-debug,60,6.0,[5  5  5  5  5  6  6  6  6  11]
+test-debug,70,6.0,[6  6  6  6  6  6  6  6  6  6]
+test-debug,80,5.5,[5  5  5  5  5  6  6  6  6  6]
+test-debug,90,5.8,[5  5  6  6  6  6  6  6  6  6]
+test-debug,100,6.5,[5  6  6  6  6  6  6  6  7  11]

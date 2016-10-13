@@ -13,7 +13,7 @@ import datetime
 import random
 import sys
 
-import testAlg # remove before turning in
+import testAlg 
 from testAlg import testAlg
 
 sys.path.insert(0, "./../enumeration")
@@ -55,6 +55,7 @@ def printAlgorithmIO(inputList, outputList, outputValue, runTime, outFil):
 # Receives:         inputList, outputList, outputValue, runTime (mu-s), outFil
 # Returns:          Nothing.
 # Preconditions:    Inputs are expected to be non-null.
+#                   outFil is open for writing.
 # ------------------------------------------------------------------------------
 
     outFil.write("input array:        " + str(inputList))
@@ -90,7 +91,7 @@ def runInputsThru(inFil, outFil, algsToRun):
 #                   ex. 0b01100 (run better-enum, d-and-c)
 #                   
 # Returns:          Nothing.
-# Preconditions:    None.
+# Preconditions:    inFil is open for reading.  outFil is open for writing.
 # ------------------------------------------------------------------------------
 
     # read contents of test problems into list of lists
@@ -311,6 +312,103 @@ def runExperiment():
     inFil.close()
 
 
+def analysisHelper(sumFil, resFil):
+#-------------------------------------------------------------------------------
+# Description:      Reads/average results and writes them to summary.
+# Receives:         File handles for summary file and results file.
+# Returns:          Nothing.
+# Preconditions:    Files are open for writing.
+# ------------------------------------------------------------------------------
+
+    algName = resFil.name.replace("MSS_ExpAnlys_","").replace("_Results.txt","")
+
+    results = []
+    for line in resFil:
+        if (line[:7] == "input a"):
+            result = []
+        if (line[:7] == "input s"):
+            result.append(int(line[20:])) 
+        if (line[:7] == "runtime"):
+            result.append(int(line[20:])) 
+            results.append(result)
+
+    results = sorted(results, key=lambda x: (x[0], x[1]))
+
+    n = -1
+    sum = 0
+    runTimes = []
+    for result in results:
+        if (n != result[0]):
+            if (len(runTimes) > 0):
+                sumFil.write(algName)
+                sumFil.write(",")
+                sumFil.write(str(n))
+                sumFil.write(",")
+                sumFil.write(str(sum / float(len(runTimes))))
+                sumFil.write(",")
+                sumFil.write(str(runTimes).replace(",", " "))
+                sumFil.write("\n")
+            n = result[0]
+            runTimes = []
+            sum = 0
+        runTimes.append(result[1])
+        sum += result[1]
+        
+    if (len(runTimes) > 0):
+        sumFil.write(algName)
+        sumFil.write(",")
+        sumFil.write(str(n))
+        sumFil.write(",")
+        sumFil.write(str(sum / float(len(runTimes))))
+        sumFil.write(",")
+        sumFil.write(str(runTimes).replace(",", " "))
+        sumFil.write("\n")
+  
+ 
+def runAnalysis():
+#-------------------------------------------------------------------------------
+# Description:      Runs 'analysis' part of experimental analysis.
+# Receives:         Nothing.
+# Returns:          Nothing.
+# Preconditions:    None.
+# ------------------------------------------------------------------------------
+   
+    sumFil = open("MSS_ExpAnlys_Summary.csv", 'w')
+    sumFil.write("algorithm,n,averageRunTime,allRunTimes\n")
+ 
+    #---- enumeration ----------------------------------
+    name = "ExpAnlys_enumeration"
+    resFil = open("MSS_" + name + "_Results.txt", 'r')
+    analysisHelper(sumFil, resFil)
+    resFil.close()
+
+    #---- better-enumeration ---------------------------
+    name = "ExpAnlys_better-enumeration"
+    resFil = open("MSS_" + name + "_Results.txt", 'r')
+    analysisHelper(sumFil, resFil)
+    resFil.close()
+
+    #---- divide-and-conquer----------------------------
+    name = "ExpAnlys_divide-and-conquer"
+    resFil = open("MSS_" + name + "_Results.txt", 'r')
+    analysisHelper(sumFil, resFil)
+    resFil.close()
+
+    #---- linear-time ----------------------------------
+    name = "ExpAnlys_linear-time"
+    resFil = open("MSS_" + name + "_Results.txt", 'r')
+    analysisHelper(sumFil, resFil)
+    resFil.close()
+
+    #---- test-debug------------------------------------
+    name = "ExpAnlys_test-debug"
+    resFil = open("MSS_" + name + "_Results.txt", 'r')
+    analysisHelper(sumFil, resFil)
+    resFil.close()
+
+    sumFil.close()
+
+
 def main():
 #-------------------------------------------------------------------------------
 # Description:      Main function which launches test cases, experimental
@@ -323,6 +421,7 @@ def main():
     runTestCases()
     solveProblems()
     runExperiment()
+    runAnalysis()
 
     # dummy calls to test randomList function
     #randomList(2)
