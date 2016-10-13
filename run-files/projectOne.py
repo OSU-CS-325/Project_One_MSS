@@ -49,19 +49,21 @@ def randomList(size):
     return retList
 
 
-def printAlgorithmIO(inputList, outputList, outputValue, outFil):
+def printAlgorithmIO(inputList, outputList, outputValue, runTime, outFil):
 #-------------------------------------------------------------------------------
 # Description:      Prints the results from a call to an algorithm function.
-# Receives:         inputList, outputList, outputValue, outFil
+# Receives:         inputList, outputList, outputValue, runTime (mu-s), outFil
 # Returns:          Nothing.
 # Preconditions:    Inputs are expected to be non-null.
 # ------------------------------------------------------------------------------
 
-    outFil.write("input array:      " + str(inputList))
+    outFil.write("input array:        " + str(inputList))
     outFil.write("\n")
-    outFil.write("max sum subarray: " + str(outputList))
+    outFil.write("max sum subarray:   " + str(outputList))
     outFil.write("\n")
-    outFil.write("maximum sum:      " + str(outputValue))
+    outFil.write("maximum sum:        " + str(outputValue))
+    outFil.write("\n")
+    outFil.write("runtime (microsec): " + str(runTime))
     outFil.write("\n")
     outFil.write("\n")
     
@@ -92,7 +94,11 @@ def runInputsThru(inFil, outFil):
             outFil.write("\n")
 
             #for j in range(len(testLists)):
+            #    start = datetime.datetime.now()
             #    retVal, retList = insertfunctionname(testLists[j])
+            #    end = datetime.datetime.now()
+            #    delta = end - start
+            #    delta = int(delta.total_seconds() * 1000000) 
             #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
         elif i == 2:
@@ -101,7 +107,11 @@ def runInputsThru(inFil, outFil):
             outFil.write("\n")
 
             #for j in range(len(testLists)):
+            #    start = datetime.datetime.now()
             #    retVal, retList = insertfunctionname(testLists[j])
+            #    end = datetime.datetime.now()
+            #    delta = end - start
+            #    delta = int(delta.total_seconds() * 1000000) 
             #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
         elif i == 3:
@@ -110,7 +120,11 @@ def runInputsThru(inFil, outFil):
             outFil.write("\n")
 
             #for j in range(len(testLists)):
+            #    start = datetime.datetime.now()
             #    retVal, retList = insertFunctionName(testLists[j])
+            #    end = datetime.datetime.now()
+            #    delta = end - start
+            #    delta = int(delta.total_seconds() * 1000000) 
             #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
         elif i == 4:
@@ -119,7 +133,11 @@ def runInputsThru(inFil, outFil):
             outFil.write("\n")
 
             #for j in range(len(testLists)):
+            #    start = datetime.datetime.now()
             #    retVal, retList = insertFunctionName(testLists[j])
+            #    end = datetime.datetime.now()
+            #    delta = end - start
+            #    delta = int(delta.total_seconds() * 1000000) 
             #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
         else:
@@ -128,8 +146,12 @@ def runInputsThru(inFil, outFil):
             outFil.write("\n")
 
             for j in range(len(testLists)):
+                start = datetime.datetime.now()
                 retVal, retList = testAlg(testLists[j])
-                printAlgorithmIO(testLists[j], retList, retVal, outFil)
+                end = datetime.datetime.now()
+                delta = end - start
+                delta = int(delta.total_seconds() * 1000000) 
+                printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
 
 
 def runTestCases():
