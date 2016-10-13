@@ -21,12 +21,14 @@ import alg1
 
 sys.path.insert(0, "./../better-enumeration")
 import alg2
+from alg2 import betterEnumeration
 
 sys.path.insert(0, "./../divide-and-conquer")
 import alg3
 
 sys.path.insert(0, "./../linear-time")
 import alg4
+from alg4 import linearTime
 
 def randomList(size):
 #-------------------------------------------------------------------------------
@@ -114,20 +116,20 @@ def runInputsThru(inFil, outFil, algsToRun):
         #    end = datetime.datetime.now()
         #    delta = end - start
         #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #    printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b01000):
         outFil.write("---- better-enumeration ---------------------------")
         outFil.write("\n")
         outFil.write("\n")
 
-        #for j in range(len(testLists)):
-        #    start = datetime.datetime.now()
-        #    retVal, retList = insertfunctionname(testLists[j])
-        #    end = datetime.datetime.now()
-        #    delta = end - start
-        #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        for j in range(len(testLists)):
+            start = datetime.datetime.now()
+            retVal, retList = betterEnumeration(testLists[j])
+            end = datetime.datetime.now()
+            delta = end - start
+            delta = int(delta.total_seconds() * 1000000) 
+            printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b00100):
         outFil.write("---- divide-and-conquer----------------------------")
@@ -140,20 +142,20 @@ def runInputsThru(inFil, outFil, algsToRun):
         #    end = datetime.datetime.now()
         #    delta = end - start
         #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #    printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b00010):
         outFil.write("---- linear-time ----------------------------------")
         outFil.write("\n")
         outFil.write("\n")
 
-        #for j in range(len(testLists)):
-        #    start = datetime.datetime.now()
-        #    retVal, retList = insertFunctionName(testLists[j])
-        #    end = datetime.datetime.now()
-        #    delta = end - start
-        #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        for j in range(len(testLists)):
+            start = datetime.datetime.now()
+            retVal, retList = linearTime(testLists[j])
+            end = datetime.datetime.now()
+            delta = end - start
+            delta = int(delta.total_seconds() * 1000000) 
+            printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b00001):
         outFil.write("---- test-debug------------------------------------")
