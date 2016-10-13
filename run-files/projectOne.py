@@ -59,6 +59,8 @@ def printAlgorithmIO(inputList, outputList, outputValue, runTime, outFil):
 
     outFil.write("input array:        " + str(inputList))
     outFil.write("\n")
+    outFil.write("input size:         " + str(len(inputList)))
+    outFil.write("\n")
     outFil.write("max sum subarray:   " + str(outputList))
     outFil.write("\n")
     outFil.write("maximum sum:        " + str(outputValue))
@@ -68,11 +70,25 @@ def printAlgorithmIO(inputList, outputList, outputValue, runTime, outFil):
     outFil.write("\n")
     
 
-def runInputsThru(inFil, outFil):
+def runInputsThru(inFil, outFil, algsToRun):
 #-------------------------------------------------------------------------------
 # Description:      Does the real work of running inputs through algorithms.
 # Receives:         File handles with input files to draw cases from and output
 #                   files to write them to.
+#
+#                   algsToRun is a 5 bit binary number, each bit is assigned to
+#                   an algorithm, and setting it to 1 means "run this algorithm"
+#
+#                    left-most bit: enumeration
+#                         next bit: better-enumeration                   
+#                         next bit: divide-and-conqure
+#                         next bit: linear-time
+#                   right-most bit: test-debug
+#
+#                   ex. 0b11111 (run all)
+#                   ex. 0b10011 (run enum, linear, and test)
+#                   ex. 0b01100 (run better-enum, d-and-c)
+#                   
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
@@ -86,72 +102,70 @@ def runInputsThru(inFil, outFil):
         if len(nextLine) > 0:
             testLists.append([int(i) for i in nextLine])
 
-    # iterate through input for each algorithm
-    for i in range(1, 6): # replace 6 with 5 later
-        if i == 1:
-            outFil.write("---- enumeration ----------------------------------")
-            outFil.write("\n")
-            outFil.write("\n")
+    if (algsToRun & 0b10000):
+        outFil.write("---- enumeration ----------------------------------")
+        outFil.write("\n")
+        outFil.write("\n")
 
-            #for j in range(len(testLists)):
-            #    start = datetime.datetime.now()
-            #    retVal, retList = insertfunctionname(testLists[j])
-            #    end = datetime.datetime.now()
-            #    delta = end - start
-            #    delta = int(delta.total_seconds() * 1000000) 
-            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #for j in range(len(testLists)):
+        #    start = datetime.datetime.now()
+        #    retVal, retList = insertfunctionname(testLists[j])
+        #    end = datetime.datetime.now()
+        #    delta = end - start
+        #    delta = int(delta.total_seconds() * 1000000) 
+        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
-        elif i == 2:
-            outFil.write("---- better-enumeration ---------------------------")
-            outFil.write("\n")
-            outFil.write("\n")
+    if (algsToRun & 0b01000):
+        outFil.write("---- better-enumeration ---------------------------")
+        outFil.write("\n")
+        outFil.write("\n")
 
-            #for j in range(len(testLists)):
-            #    start = datetime.datetime.now()
-            #    retVal, retList = insertfunctionname(testLists[j])
-            #    end = datetime.datetime.now()
-            #    delta = end - start
-            #    delta = int(delta.total_seconds() * 1000000) 
-            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #for j in range(len(testLists)):
+        #    start = datetime.datetime.now()
+        #    retVal, retList = insertfunctionname(testLists[j])
+        #    end = datetime.datetime.now()
+        #    delta = end - start
+        #    delta = int(delta.total_seconds() * 1000000) 
+        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
-        elif i == 3:
-            outFil.write("---- divide-and-conquer----------------------------")
-            outFil.write("\n")
-            outFil.write("\n")
+    if (algsToRun & 0b00100):
+        outFil.write("---- divide-and-conquer----------------------------")
+        outFil.write("\n")
+        outFil.write("\n")
 
-            #for j in range(len(testLists)):
-            #    start = datetime.datetime.now()
-            #    retVal, retList = insertFunctionName(testLists[j])
-            #    end = datetime.datetime.now()
-            #    delta = end - start
-            #    delta = int(delta.total_seconds() * 1000000) 
-            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #for j in range(len(testLists)):
+        #    start = datetime.datetime.now()
+        #    retVal, retList = insertFunctionName(testLists[j])
+        #    end = datetime.datetime.now()
+        #    delta = end - start
+        #    delta = int(delta.total_seconds() * 1000000) 
+        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
-        elif i == 4:
-            outFil.write("---- linear-time ----------------------------------")
-            outFil.write("\n")
-            outFil.write("\n")
+    if (algsToRun & 0b00010):
+        outFil.write("---- linear-time ----------------------------------")
+        outFil.write("\n")
+        outFil.write("\n")
 
-            #for j in range(len(testLists)):
-            #    start = datetime.datetime.now()
-            #    retVal, retList = insertFunctionName(testLists[j])
-            #    end = datetime.datetime.now()
-            #    delta = end - start
-            #    delta = int(delta.total_seconds() * 1000000) 
-            #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
+        #for j in range(len(testLists)):
+        #    start = datetime.datetime.now()
+        #    retVal, retList = insertFunctionName(testLists[j])
+        #    end = datetime.datetime.now()
+        #    delta = end - start
+        #    delta = int(delta.total_seconds() * 1000000) 
+        #    printAlgorithmIO(testLists[j], retList, retVal, outFil)
                 
-        else:
-            outFil.write("---- test -----------------------------------------")
-            outFil.write("\n")
-            outFil.write("\n")
+    if (algsToRun & 0b00001):
+        outFil.write("---- test-debug------------------------------------")
+        outFil.write("\n")
+        outFil.write("\n")
 
-            for j in range(len(testLists)):
-                start = datetime.datetime.now()
-                retVal, retList = testAlg(testLists[j])
-                end = datetime.datetime.now()
-                delta = end - start
-                delta = int(delta.total_seconds() * 1000000) 
-                printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+        for j in range(len(testLists)):
+            start = datetime.datetime.now()
+            retVal, retList = testAlg(testLists[j])
+            end = datetime.datetime.now()
+            delta = end - start
+            delta = int(delta.total_seconds() * 1000000) 
+            printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
 
 
 def runTestCases():
@@ -165,7 +179,7 @@ def runTestCases():
     inFil = open("MSS_TestProblems.txt", 'r')
     outFil = open("MSS_TestResults.txt", 'w')
 
-    runInputsThru(inFil, outFil)
+    runInputsThru(inFil, outFil, 0b11111)
 
     inFil.close()
     outFil.close()
@@ -182,20 +196,119 @@ def solveProblems():
     inFil = open("MSS_Problems.txt", 'r')
     outFil = open("MSS_Results.txt", 'w')
 
-    runInputsThru(inFil, outFil)
+    runInputsThru(inFil, outFil, 0b11111)
 
     inFil.close()
     outFil.close()
 
 
-def runExperimentalAnalysis():
+def runExperiment():
 #-------------------------------------------------------------------------------
-# Description:      Runs experimental analysis.
+# Description:      Runs 'experiment' part of experimental analysis.
 # Receives:         Nothing.
 # Returns:          Nothing.
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
-    print "runExperimentalAnalysis"
+    
+    #---- enumeration ----------------------------------
+    # create input file with random inputs
+    name = "ExpAnlys_enumeration"
+    randFil = open("MSS_" + name + ".txt", 'w')
+    n = 10
+    for i in range(0, 10):
+        for j in range(0, 10):
+            randFil.write(str(randomList(n)))
+            randFil.write("\n")
+        n += 10
+    randFil.close()
+
+    # run algorithm(s) with random inputs
+    inFil = open("MSS_" + name + ".txt", 'r')
+    outFil = open("MSS_" + name + "_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b10000)
+
+    inFil.close()
+
+    #---- better-enumeration ---------------------------
+    # create input file with random inputs
+    name = "ExpAnlys_better-enumeration"
+    randFil = open("MSS_" + name + ".txt", 'w')
+    n = 10
+    for i in range(0, 10):
+        for j in range(0, 10):
+            randFil.write(str(randomList(n)))
+            randFil.write("\n")
+        n += 10
+    randFil.close()
+
+    # run algorithm(s) with random inputs
+    inFil = open("MSS_" + name + ".txt", 'r')
+    outFil = open("MSS_" + name + "_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b01000)
+
+    inFil.close()
+
+    #---- divide-and-conquer----------------------------
+    # create input file with random inputs
+    name = "ExpAnlys_divide-and-conquer"
+    randFil = open("MSS_" + name + ".txt", 'w')
+    n = 10
+    for i in range(0, 10):
+        for j in range(0, 10):
+            randFil.write(str(randomList(n)))
+            randFil.write("\n")
+        n += 10
+    randFil.close()
+
+    # run algorithm(s) with random inputs
+    inFil = open("MSS_" + name + ".txt", 'r')
+    outFil = open("MSS_" + name + "_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b00100)
+
+    inFil.close()
+
+    #---- linear-time ----------------------------------
+    # create input file with random inputs
+    name = "ExpAnlys_linear-time"
+    randFil = open("MSS_" + name + ".txt", 'w')
+    n = 10
+    for i in range(0, 10):
+        for j in range(0, 10):
+            randFil.write(str(randomList(n)))
+            randFil.write("\n")
+        n += 10
+    randFil.close()
+
+    # run algorithm(s) with random inputs
+    inFil = open("MSS_" + name + ".txt", 'r')
+    outFil = open("MSS_" + name + "_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b00010)
+
+    inFil.close()
+
+    #---- test-debug------------------------------------
+    # create input file with random inputs
+    name = "ExpAnlys_test-debug"
+    randFil = open("MSS_" + name + ".txt", 'w')
+    n = 10
+    for i in range(0, 10):
+        for j in range(0, 10):
+            randFil.write(str(randomList(n)))
+            randFil.write("\n")
+        n += 10
+    randFil.close()
+
+    # run algorithm(s) with random inputs
+    inFil = open("MSS_" + name + ".txt", 'r')
+    outFil = open("MSS_" + name + "_Results.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b00001)
+
+    inFil.close()
 
 
 def main():
@@ -209,12 +322,13 @@ def main():
     
     runTestCases()
     solveProblems()
-    #runExperimentalAnalysis
+    runExperiment()
 
-    randomList(2)
-    randomList(4)    
-    randomList(8)
-    randomList(16)
+    # dummy calls to test randomList function
+    #randomList(2)
+    #randomList(4)    
+    #randomList(8)
+    #randomList(16)
 
     # dummy call just to demo how to pass args to and get return values
     #myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
