@@ -1,0 +1,17 @@
+LINEAR-TIME-MAX-SUBARRAY(A[1, ..., N])
+	maximum sum = -Infinity
+	sum ending here = -Infinity
+	for i from 1 to N
+		ending here high index = j
+		if ending here sum > 0
+			ending here sum = ending here sum + A[i]
+		else
+			ending here low index = j
+			ending here sum = A[i]
+
+		if ending here sum > maximum sum
+			maximum sum = ending here sum
+			start index = ending here low index
+			end index = ending here high index
+
+	return maximum sum, A[start index, ..., end index]
