@@ -1,0 +1,21 @@
+The file "MSS_Custom_TestProblems.txt" contains several test cases used in
+addition to the provided test set. This file contains the rationale for the 
+chosen test cases.
+
+1. Single element array. This is the trivial case.
+
+2. All positive elements. Included to test where entire array is the maximum
+	sub-array.
+
+3. Left-most element is the only positive element. Included to test a single
+	positive element at the boundaries.
+
+4. Right-most element is the only positive element. Included to test a single
+	positive element at the boundaries.
+
+5. Center element is the only positive element. Included to test a single 
+	positive element in the middle of the array.
+
+6. Running sum temporarily equals zero before increasing to maximum sum. 
+	Included to test that logic conditions are correctly handled in the linear
+	algorithm.
