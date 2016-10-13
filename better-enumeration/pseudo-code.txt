@@ -1,0 +1,12 @@
+BETTER-ENUMERATION-MAX-SUBARRAY(A[1, ..., N])
+	maximum sum = -Infinity
+	for i from 1 to N
+		current sum = 0
+		for j from i to N
+			current sum = current sum + A[j]
+			if current sum > maximum sum
+				maximum sum = current sum
+				start index = i
+				end index = j
+
+	return maximum sum, A[start index, ..., end index]
