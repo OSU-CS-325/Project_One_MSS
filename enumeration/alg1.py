@@ -29,12 +29,12 @@ def enumeration(values):
       for k in range(j, len(values)):
         cur_sum += values[k]
   
-      # If the current sum is the new max save it and the starting and ending
-      # indices 
-      if cur_sum > max_sum:
-        max_sum = cur_sum
-        start_idx = i
-        end_idx = j
+        # If the current sum is the new max save it and the starting and ending
+        # indices 
+        if cur_sum > max_sum:
+          max_sum = cur_sum
+          start_idx = j
+          end_idx = k
 
   # Return the max sum and the maximum sub-array
   return max_sum, values[start_idx : end_idx + 1]
