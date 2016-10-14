@@ -1,0 +1,3 @@
+DIVIDE_AND_CONQUER(A[1,...,N]){
+    
+}
