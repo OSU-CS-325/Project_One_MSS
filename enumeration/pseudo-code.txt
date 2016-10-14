@@ -1,0 +1,22 @@
+ENUMERATION-MAX-SUBARRAY(A[1,..., N]) {
+  if N == 0 {
+    return 0, A
+  } else {
+    max_sum = -Infinity
+  }
+
+  for i from 1 to N {
+    for j from i to N {
+      current_sum = 0
+      for k from j to N {
+        current_sum = current_sum + A[k]
+        if current_sum > max_sum {
+          max_sum = current_sum
+          start_index = j
+          end_index = k
+        }
+      }
+    }
+  }
+  return max_sum, A[start_index,...,end_index]
+}
