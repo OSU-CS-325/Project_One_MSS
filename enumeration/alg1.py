@@ -22,13 +22,13 @@ def enumeration(values):
   # Iterate starting index over list of values
   for i in range(len(values)):
 
-    # Variable that tracks the current sum
-    cur_sum = 0
-
     # Inner for loop that explores the remaining array for the max sub-array
     for j in range(i, len(values)):
-      cur_sum += values[j]
+      cur_sum = 0
 
+      for k in range(j, len(values)):
+        cur_sum += values[k]
+  
       # If the current sum is the new max save it and the starting and ending
       # indices 
       if cur_sum > max_sum:
