@@ -1,48 +1,90 @@
 ---- enumeration ----------------------------------
 
+input array:        [1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11]
+input size:         16
+max sum subarray:   [8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19]
+maximum sum:        34
+runtime (microsec): 204
+
+input array:        [2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3, 7, -2]
+input size:         15
+max sum subarray:   [2, 9, 8, 6, 5]
+maximum sum:        30
+runtime (microsec): 143
+
+input array:        [10, -11, -1, -9, 33, -45, 23, 24, -1, -7, -8, 19]
+input size:         12
+max sum subarray:   [23, 24, -1, -7, -8, 19]
+maximum sum:        50
+runtime (microsec): 85
+
+input array:        [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
+input size:         10
+max sum subarray:   [59, 26, -53, 58, 97]
+maximum sum:        187
+runtime (microsec): 60
+
+input array:        [3, 2, 1, 1, -8, 1, 1, 2, 3]
+input size:         9
+max sum subarray:   [3, 2, 1, 1]
+maximum sum:        7
+runtime (microsec): 48
+
+input array:        [12, 99, 99, -99, -27, 0, 0, 0, -3, 10]
+input size:         10
+max sum subarray:   [12, 99, 99]
+maximum sum:        210
+runtime (microsec): 66
+
+input array:        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+input size:         9
+max sum subarray:   [4, -1, 2, 1]
+maximum sum:        6
+runtime (microsec): 49
+
 ---- better-enumeration ---------------------------
 
 input array:        [1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11]
 input size:         16
 max sum subarray:   [8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19]
 maximum sum:        34
-runtime (microsec): 104
+runtime (microsec): 28
 
 input array:        [2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3, 7, -2]
 input size:         15
 max sum subarray:   [2, 9, 8, 6, 5]
 maximum sum:        30
-runtime (microsec): 32
+runtime (microsec): 26
 
 input array:        [10, -11, -1, -9, 33, -45, 23, 24, -1, -7, -8, 19]
 input size:         12
 max sum subarray:   [23, 24, -1, -7, -8, 19]
 maximum sum:        50
-runtime (microsec): 24
+runtime (microsec): 21
 
 input array:        [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
 input size:         10
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 21
+runtime (microsec): 18
 
 input array:        [3, 2, 1, 1, -8, 1, 1, 2, 3]
 input size:         9
 max sum subarray:   [3, 2, 1, 1]
 maximum sum:        7
-runtime (microsec): 17
+runtime (microsec): 16
 
 input array:        [12, 99, 99, -99, -27, 0, 0, 0, -3, 10]
 input size:         10
 max sum subarray:   [12, 99, 99]
 maximum sum:        210
-runtime (microsec): 19
+runtime (microsec): 17
 
 input array:        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 input size:         9
 max sum subarray:   [4, -1, 2, 1]
 maximum sum:        6
-runtime (microsec): 17
+runtime (microsec): 16
 
 ---- divide-and-conquer----------------------------
 
@@ -52,13 +94,13 @@ input array:        [1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11]
 input size:         16
 max sum subarray:   [8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19]
 maximum sum:        34
-runtime (microsec): 12
+runtime (microsec): 11
 
 input array:        [2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3, 7, -2]
 input size:         15
 max sum subarray:   [2, 9, 8, 6, 5]
 maximum sum:        30
-runtime (microsec): 11
+runtime (microsec): 10
 
 input array:        [10, -11, -1, -9, 33, -45, 23, 24, -1, -7, -8, 19]
 input size:         12
@@ -70,7 +112,7 @@ input array:        [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
 input size:         10
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 10
+runtime (microsec): 9
 
 input array:        [3, 2, 1, 1, -8, 1, 1, 2, 3]
 input size:         9
@@ -88,7 +130,7 @@ input array:        [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 input size:         9
 max sum subarray:   [4, -1, 2, 1]
 maximum sum:        6
-runtime (microsec): 10
+runtime (microsec): 9
 
 ---- test-debug------------------------------------
 
@@ -96,13 +138,13 @@ input array:        [1, 4, -9, 8, 1, 3, 3, 1, -1, -4, -6, 2, 8, 19, -10, -11]
 input size:         16
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 6
+runtime (microsec): 5
 
 input array:        [2, 9, 8, 6, 5, -11, 9, -11, 7, 5, -1, -8, -3, 7, -2]
 input size:         15
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 6
+runtime (microsec): 5
 
 input array:        [10, -11, -1, -9, 33, -45, 23, 24, -1, -7, -8, 19]
 input size:         12
@@ -114,13 +156,13 @@ input array:        [31, -41, 59, 26, -53, 58, 97, -93, -23, 84]
 input size:         10
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 6
+runtime (microsec): 5
 
 input array:        [3, 2, 1, 1, -8, 1, 1, 2, 3]
 input size:         9
 max sum subarray:   [59, 26, -53, 58, 97]
 maximum sum:        187
-runtime (microsec): 6
+runtime (microsec): 5
 
 input array:        [12, 99, 99, -99, -27, 0, 0, 0, -3, 10]
 input size:         10

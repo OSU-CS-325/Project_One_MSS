@@ -117,6 +117,10 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+            #print str(len(testLists[j]))            
+            #print str(start)
+            #print str(end)
+            #print str(delta / 1000000)
                 
     if (algsToRun & 0b01000):
         outFil.write("---- better-enumeration ---------------------------")
@@ -130,6 +134,10 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+            #print str(len(testLists[j]))            
+            #print str(start)
+            #print str(end)
+            #print str(delta / 1000000)
                 
     if (algsToRun & 0b00100):
         outFil.write("---- divide-and-conquer----------------------------")
@@ -156,7 +164,7 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
-                
+    
     if (algsToRun & 0b00001):
         outFil.write("---- test-debug------------------------------------")
         outFil.write("\n")
@@ -234,12 +242,12 @@ def runExperiment():
     # create input file with random inputs
     name = "ExpAnlys_enumeration"
     randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10
+    n = 10 #3600 use this value to get >= 60 sec for n=36000
     for i in range(0, 10):
         for j in range(0, 10):
             randFil.write(str(randomList(n)))
             randFil.write("\n")
-        n += 10
+        n += 10 #3600 use this value to get >= 60 sec worst n=36000
     randFil.close()
 
     # run algorithm(s) with random inputs
@@ -254,12 +262,12 @@ def runExperiment():
     # create input file with random inputs
     name = "ExpAnlys_better-enumeration"
     randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10
+    n = 10 #3600 use this value to get >= 60 sec for n=36000
     for i in range(0, 10):
-        for j in range(0, 10):
+        for j in range(0, 1):
             randFil.write(str(randomList(n)))
             randFil.write("\n")
-        n += 10
+        n += 10 #3600 use this value to get >= 60 sec worst n=36000
     randFil.close()
 
     # run algorithm(s) with random inputs
@@ -437,24 +445,20 @@ def main():
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
     
+    print "running test cases provided with assignment..."
     runTestCases()
+    
+    print "running extra test cases created as part of assignment..."
     runCustomTestCases()
+    
+    print "solving problems provided with assignment..."
     solveProblems()
+    
+    print "running experiments to generate runtimes as a function of input size..."
     runExperiment()
+    
+    print "consolidating experimental outputs into csv formatted file..."
     runAnalysis()
-
-    # dummy calls to test randomList function
-    #randomList(2)
-    #randomList(4)    
-    #randomList(8)
-    #randomList(16)
-
-    # dummy call just to demo how to pass args to and get return values
-    #myList = [31,-41,59,26,-53,58,97,-93,-23,84] 
-    #retVal, retList = testAlg(myList)
-
-    #print "retVal = " + str(retVal)
-    #print "retList = " + str(retList)
 
 # ------------------------------------------------------------
 if __name__ == "__main__":
