@@ -8,12 +8,12 @@ ENUMERATION-MAX-SUBARRAY(A[1,..., N]) {
   for i from 1 to N {
     for j from i to N {
       current_sum = 0
-      for k from j to N {
+      for k from i to j {
         current_sum = current_sum + A[k]
         if current_sum > max_sum {
           max_sum = current_sum
-          start_index = j
-          end_index = k
+          start_index = i
+          end_index = j
         }
       }
     }
