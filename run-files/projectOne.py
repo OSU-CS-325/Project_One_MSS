@@ -117,10 +117,6 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
-            #print str(len(testLists[j]))            
-            #print str(start)
-            #print str(end)
-            #print str(delta / 1000000)
                 
     if (algsToRun & 0b01000):
         outFil.write("---- better-enumeration ---------------------------")
@@ -134,10 +130,6 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
-            #print str(len(testLists[j]))            
-            #print str(start)
-            #print str(end)
-            #print str(delta / 1000000)
                 
     if (algsToRun & 0b00100):
         outFil.write("---- divide-and-conquer----------------------------")
@@ -164,6 +156,11 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = end - start
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+
+            #print str(len(testLists[j]))  #debug only            
+            #print str(start)              #debug only
+            #print str(end)                #debug only
+            #print str(delta / 1000000)    #debug only
     
     if (algsToRun & 0b00001):
         outFil.write("---- test-debug------------------------------------")
@@ -242,12 +239,12 @@ def runExperiment():
     # create input file with random inputs
     name = "ExpAnlys_enumeration"
     randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10 #3600 use this value to get >= 60 sec for n=36000
+    n = 10 #160 use this value to get >= 60 sec for highest n
     for i in range(0, 10):
         for j in range(0, 10):
             randFil.write(str(randomList(n)))
             randFil.write("\n")
-        n += 10 #3600 use this value to get >= 60 sec worst n=36000
+        n += 10 #160 use this value to get >= 60 sec highest n
     randFil.close()
 
     # run algorithm(s) with random inputs
@@ -262,12 +259,12 @@ def runExperiment():
     # create input file with random inputs
     name = "ExpAnlys_better-enumeration"
     randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10 #3600 use this value to get >= 60 sec for n=36000
+    n = 10 #3600 use this value to get >= 60 sec for highest n
     for i in range(0, 10):
-        for j in range(0, 1):
+        for j in range(0, 10):
             randFil.write(str(randomList(n)))
             randFil.write("\n")
-        n += 10 #3600 use this value to get >= 60 sec worst n=36000
+        n += 10 #3600 use this value to get >= 60 sec for highest n
     randFil.close()
 
     # run algorithm(s) with random inputs
