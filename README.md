@@ -1,3 +1,6 @@
+Project One: Maximum Sub-Array Summation
+===
+
 - In the specific folders for each algorithm
     - Python function
         - Input parameter: Array of ints
