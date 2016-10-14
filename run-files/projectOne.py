@@ -157,11 +157,6 @@ def runInputsThru(inFil, outFil, algsToRun):
             delta = int(delta.total_seconds() * 1000000) 
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
 
-            #print str(len(testLists[j]))  #debug only            
-            #print str(start)              #debug only
-            #print str(end)                #debug only
-            #print str(delta / 1000000)    #debug only
-    
     if (algsToRun & 0b00001):
         outFil.write("---- test-debug------------------------------------")
         outFil.write("\n")
@@ -176,6 +171,90 @@ def runInputsThru(inFil, outFil, algsToRun):
             printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
 
 
+def runInputsThruNoFil(inputList, algToRun):
+#-------------------------------------------------------------------------------
+# Description:      Simpler version of runInputsThru with no I/O. 
+# Receives:         List of integers.
+#
+#                   algsToRun is a 5 bit binary number, each bit is assigned to
+#                   an algorithm, and setting it to 1 means "run this algorithm"
+#
+#                    left-most bit: enumeration
+#                         next bit: better-enumeration                   
+#                         next bit: divide-and-conqure
+#                         next bit: linear-time
+#                   right-most bit: test-debug
+#
+#                   NOTE: IN THIS VERSION ONLY THE LEFT-MOST 1 BIT IS USED
+#                         ONLY ONE ALGORITHM WILL BE RUN AT A TIME
+#
+#                   ex. 0b11111 (run enum)
+#                   ex. 0b10011 (run enum)
+#                   ex. 0b01100 (run better-enum)
+#                   ex. 0b00010 (run linear-time)
+#                   
+# Returns:          Time to run algorithm in microseconds.
+# Preconditions:    Input list shouldn't be empty.
+# ------------------------------------------------------------------------------
+
+    if (algToRun & 0b10000):
+        #outFil.write("---- enumeration ----------------------------------")
+
+        start = datetime.datetime.now()
+        retVal, retList = enumeration(inputList)
+        end = datetime.datetime.now()
+        delta = end - start
+        delta = int(delta.total_seconds() * 1000000) 
+        return delta
+                
+    elif (algToRun & 0b01000):
+        #outFil.write("---- better-enumeration ---------------------------")
+
+        start = datetime.datetime.now()
+        retVal, retList = betterEnumeration(inputList)
+        end = datetime.datetime.now()
+        delta = end - start
+        delta = int(delta.total_seconds() * 1000000) 
+        return delta
+                
+    #elif (algToRun & 0b00100):
+        #outFil.write("---- divide-and-conquer----------------------------")
+
+        #start = datetime.datetime.now()
+        #retVal, retList = insertFunctionName(inputList)
+        #end = datetime.datetime.now()
+        #delta = end - start
+        #delta = int(delta.total_seconds() * 1000000) 
+        #return delta
+                
+    elif (algToRun & 0b00010):
+        #outFil.write("---- linear-time ----------------------------------")
+
+        start = datetime.datetime.now()
+        retVal, retList = linearTime(inputList)
+        end = datetime.datetime.now()
+        delta = end - start
+        delta = int(delta.total_seconds() * 1000000)
+        return delta 
+
+        #print str(len(testLists[j]))  #debug only            
+        #print str(start)              #debug only
+        #print str(end)                #debug only
+        #print str(delta / 1000000)    #debug only
+    
+    elif (algToRun & 0b00001):
+        #outFil.write("---- test-debug------------------------------------")
+
+        start = datetime.datetime.now()
+        retVal, retList = testAlg(inputList)
+        end = datetime.datetime.now()
+        delta = end - start
+        delta = int(delta.total_seconds() * 1000000) 
+        return delta
+
+    else:
+        return 0 # just here to keep program from bombing if invalid 0bxxxxx input
+
 def runTestCases():
 #-------------------------------------------------------------------------------
 # Description:      Runs test cases.
@@ -187,7 +266,7 @@ def runTestCases():
     inFil = open("MSS_TestProblems.txt", 'r')
     outFil = open("MSS_TestResults.txt", 'w')
 
-    runInputsThru(inFil, outFil, 0b11111)
+    runInputsThru(inFil, outFil, 0b11110)
 
     inFil.close()
     outFil.close()
@@ -204,7 +283,7 @@ def runCustomTestCases():
     inFil = open("MSS_Custom_TestProblems.txt", 'r')
     outFil = open("MSS_Custom_TestResults.txt", 'w')
 
-    runInputsThru(inFil, outFil, 0b11111)
+    runInputsThru(inFil, outFil, 0b11110)
 
     inFil.close()
     outFil.close()
@@ -221,12 +300,33 @@ def solveProblems():
     inFil = open("MSS_Problems.txt", 'r')
     outFil = open("MSS_Results.txt", 'w')
 
-    runInputsThru(inFil, outFil, 0b11111)
+    runInputsThru(inFil, outFil, 0b11110)
 
     inFil.close()
     outFil.close()
 
 
+def analysisHelper(resultsList):
+#------------------------------------------------------------------------------
+# Description:      Writes results to summary CSV file.
+# Receives:         2-D list of results.
+# Returns:          Nothing.
+# Preconditions:    Each element of resultsList should be [alg, n, runTime].
+# ------------------------------------------------------------------------------
+
+    print "consolidating experimental outputs into csv formatted file..."
+    
+    sumFil = open("MSS_ExpAnlys_Results.csv", 'w')
+
+    resultsList = sorted(resultsList, key=lambda x: (x[0], x[1]))
+
+    sumFil.write("algorithm,n,avgRunTime\n")
+    for result in resultsList:
+      sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
+
+    sumFil.close()
+
+ 
 def runExperiment():
 #-------------------------------------------------------------------------------
 # Description:      Runs 'experiment' part of experimental analysis.
@@ -235,202 +335,86 @@ def runExperiment():
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
     
-    #---- enumeration ----------------------------------
-    # create input file with random inputs
-    name = "ExpAnlys_enumeration"
-    randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10 #160 use this value to get >= 60 sec for highest n
-    for i in range(0, 10):
-        for j in range(0, 10):
-            randFil.write(str(randomList(n)))
-            randFil.write("\n")
-        n += 10 #160 use this value to get >= 60 sec highest n
-    randFil.close()
-
-    # run algorithm(s) with random inputs
-    inFil = open("MSS_" + name + ".txt", 'r')
-    outFil = open("MSS_" + name + "_Results.txt", 'w')
-
-    runInputsThru(inFil, outFil, 0b10000)
-
-    inFil.close()
-
-    #---- better-enumeration ---------------------------
-    # create input file with random inputs
-    name = "ExpAnlys_better-enumeration"
-    randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10 #3600 use this value to get >= 60 sec for highest n
-    for i in range(0, 10):
-        for j in range(0, 10):
-            randFil.write(str(randomList(n)))
-            randFil.write("\n")
-        n += 10 #3600 use this value to get >= 60 sec for highest n
-    randFil.close()
-
-    # run algorithm(s) with random inputs
-    inFil = open("MSS_" + name + ".txt", 'r')
-    outFil = open("MSS_" + name + "_Results.txt", 'w')
-
-    runInputsThru(inFil, outFil, 0b01000)
-
-    inFil.close()
-
-    #---- divide-and-conquer----------------------------
-    # create input file with random inputs
-    name = "ExpAnlys_divide-and-conquer"
-    randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10
-    for i in range(0, 10):
-        for j in range(0, 10):
-            randFil.write(str(randomList(n)))
-            randFil.write("\n")
-        n += 10
-    randFil.close()
-
-    # run algorithm(s) with random inputs
-    inFil = open("MSS_" + name + ".txt", 'r')
-    outFil = open("MSS_" + name + "_Results.txt", 'w')
-
-    runInputsThru(inFil, outFil, 0b00100)
-
-    inFil.close()
-
-    #---- linear-time ----------------------------------
-    # create input file with random inputs
-    name = "ExpAnlys_linear-time"
-    randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10
-    for i in range(0, 10):
-        for j in range(0, 10):
-            randFil.write(str(randomList(n)))
-            randFil.write("\n")
-        n += 10
-    randFil.close()
-
-    # run algorithm(s) with random inputs
-    inFil = open("MSS_" + name + ".txt", 'r')
-    outFil = open("MSS_" + name + "_Results.txt", 'w')
-
-    runInputsThru(inFil, outFil, 0b00010)
-
-    inFil.close()
-
-    #---- test-debug------------------------------------
-    # create input file with random inputs
-    name = "ExpAnlys_test-debug"
-    randFil = open("MSS_" + name + ".txt", 'w')
-    n = 10
-    for i in range(0, 10):
-        for j in range(0, 10):
-            randFil.write(str(randomList(n)))
-            randFil.write("\n")
-        n += 10
-    randFil.close()
-
-    # run algorithm(s) with random inputs
-    inFil = open("MSS_" + name + ".txt", 'r')
-    outFil = open("MSS_" + name + "_Results.txt", 'w')
-
-    runInputsThru(inFil, outFil, 0b00001)
-
-    inFil.close()
-
-
-def analysisHelper(sumFil, resFil):
-#-------------------------------------------------------------------------------
-# Description:      Reads/average results and writes them to summary.
-# Receives:         File handles for summary file and results file.
-# Returns:          Nothing.
-# Preconditions:    Files are open for writing.
-# ------------------------------------------------------------------------------
-
-    algName = resFil.name.replace("MSS_ExpAnlys_","").replace("_Results.txt","")
-
     results = []
-    for line in resFil:
-        if (line[:7] == "input a"):
-            result = []
-        if (line[:7] == "input s"):
-            result.append(int(line[20:])) 
-        if (line[:7] == "runtime"):
-            result.append(int(line[20:])) 
-            results.append(result)
 
-    results = sorted(results, key=lambda x: (x[0], x[1]))
-
-    n = -1
-    sum = 0
-    runTimes = []
-    for result in results:
-        if (n != result[0]):
-            if (len(runTimes) > 0):
-                sumFil.write(algName)
-                sumFil.write(",")
-                sumFil.write(str(n))
-                sumFil.write(",")
-                sumFil.write(str(sum / float(len(runTimes))))
-                sumFil.write(",")
-                sumFil.write(str(runTimes).replace(",", " "))
-                sumFil.write("\n")
-            n = result[0]
-            runTimes = []
-            sum = 0
-        runTimes.append(result[1])
-        sum += result[1]
-        
-    if (len(runTimes) > 0):
-        sumFil.write(algName)
-        sumFil.write(",")
-        sumFil.write(str(n))
-        sumFil.write(",")
-        sumFil.write(str(sum / float(len(runTimes))))
-        sumFil.write(",")
-        sumFil.write(str(runTimes).replace(",", " "))
-        sumFil.write("\n")
-  
- 
-def runAnalysis():
-#-------------------------------------------------------------------------------
-# Description:      Runs 'analysis' part of experimental analysis.
-# Receives:         Nothing.
-# Returns:          Nothing.
-# Preconditions:    None.
-# ------------------------------------------------------------------------------
-   
-    sumFil = open("MSS_ExpAnlys_Summary.csv", 'w')
-    sumFil.write("algorithm,n,averageRunTime,allRunTimes\n")
- 
     #---- enumeration ----------------------------------
-    name = "ExpAnlys_enumeration"
-    resFil = open("MSS_" + name + "_Results.txt", 'r')
-    analysisHelper(sumFil, resFil)
-    resFil.close()
+    name = "enumeration"
+    n = 10 #160 use this value to get >= 60 sec for highest n
+    for i in range(0, 10): # 10 different sizes of n
+        totalRunTime = 0
+        for j in range(0, 10): # 10 different random lists of size n
+            runTime = runInputsThruNoFil(randomList(n), 0b10000)
+            totalRunTime += runTime
+        result = []
+        result.append(name)
+        result.append(n)
+        result.append(totalRunTime / float(10))
+        results.append(result)
+        n += 10 #160 use this value to get >= 60 sec highest n
 
     #---- better-enumeration ---------------------------
-    name = "ExpAnlys_better-enumeration"
-    resFil = open("MSS_" + name + "_Results.txt", 'r')
-    analysisHelper(sumFil, resFil)
-    resFil.close()
+    name = "better-enumeration"
+    n = 10 #3600 use this value to get >= 60 sec for highest n
+    for i in range(0, 10): # 10 different sizes of n
+        totalRunTime = 0
+        for j in range(0, 10): # 10 different random lists of size n
+            runTime = runInputsThruNoFil(randomList(n), 0b01000)
+            totalRunTime += runTime
+        result = []
+        result.append(name)
+        result.append(n)
+        result.append(totalRunTime / float(10))
+        results.append(result)
+        n += 10 #3600 use this value to get >= 60 sec for highest n
 
     #---- divide-and-conquer----------------------------
-    name = "ExpAnlys_divide-and-conquer"
-    resFil = open("MSS_" + name + "_Results.txt", 'r')
-    analysisHelper(sumFil, resFil)
-    resFil.close()
+    name = "divide-and-conquer"
+    n = 10
+    for i in range(0, 10): # 10 different sizes of n
+        totalRunTime = 0
+        for j in range(0, 10): # 10 different random lists of size n
+            runTime = runInputsThruNoFil(randomList(n), 0b00100)
+            totalRunTime += runTime
+        result = []
+        result.append(name)
+        result.append(n)
+        result.append(totalRunTime / float(10))
+        results.append(result)
+        n += 10
 
     #---- linear-time ----------------------------------
-    name = "ExpAnlys_linear-time"
-    resFil = open("MSS_" + name + "_Results.txt", 'r')
-    analysisHelper(sumFil, resFil)
-    resFil.close()
+    name = "linear-time"
+    n = 10 #3600 use this value to get >= 60 sec for highest n
+    for i in range(0, 10): # 10 different sizes of n
+        totalRunTime = 0
+        for j in range(0, 10): # 10 different random lists of size n
+            runTime = runInputsThruNoFil(randomList(n), 0b00010)
+            totalRunTime += runTime
+        result = []
+        result.append(name)
+        result.append(n)
+        result.append(totalRunTime / float(10))
+        results.append(result)
+        n += 10 #3600 use this value to get >= 60 sec for highest n
 
-    #---- test-debug------------------------------------
-    name = "ExpAnlys_test-debug"
-    resFil = open("MSS_" + name + "_Results.txt", 'r')
-    analysisHelper(sumFil, resFil)
-    resFil.close()
+    #---- test-debug -----------------------------------
+    # create input file with random inputs
+    #name = "test-debug"
+    #n = 10
+    #for i in range(0, 10): # 10 different sizes of n
+    #    totalRunTime = 0
+    #    for j in range(0, 10): # 10 different random lists of size n
+    #        runTime = runInputsThruNoFil(randomList(n), 0b00001)
+    #        totalRunTime += runTime
+    #    result = []
+    #    result.append(name)
+    #    result.append(n)
+    #    result.append(totalRunTime / float(10))
+    #    results.append(result)
+    #    n += 10
 
-    sumFil.close()
+    #---- write output ---------------------------------
+    analysisHelper(results)
 
 
 def main():
@@ -454,9 +438,6 @@ def main():
     print "running experiments to generate runtimes as a function of input size..."
     runExperiment()
     
-    print "consolidating experimental outputs into csv formatted file..."
-    runAnalysis()
-
 # ------------------------------------------------------------
 if __name__ == "__main__":
     main()
