@@ -17,7 +17,7 @@ import testAlg
 from testAlg import testAlg
 
 sys.path.insert(0, "./../enumeration")
-import alg1
+from alg1 import enumeration
 
 sys.path.insert(0, "./../better-enumeration")
 import alg2
@@ -110,13 +110,13 @@ def runInputsThru(inFil, outFil, algsToRun):
         outFil.write("\n")
         outFil.write("\n")
 
-        #for j in range(len(testLists)):
-        #    start = datetime.datetime.now()
-        #    retVal, retList = insertfunctionname(testLists[j])
-        #    end = datetime.datetime.now()
-        #    delta = end - start
-        #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+        for j in range(len(testLists)):
+            start = datetime.datetime.now()
+            retVal, retList = enumeration(testLists[j])
+            end = datetime.datetime.now()
+            delta = end - start
+            delta = int(delta.total_seconds() * 1000000) 
+            printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b01000):
         outFil.write("---- better-enumeration ---------------------------")
