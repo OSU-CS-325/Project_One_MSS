@@ -9,7 +9,7 @@
 #---------------------------------------------------------------------------
 
 # Module used to facilitate the use of this function as a CL utility 
-import sys
+from sys import argv
 
 def enumeration(values):
   
@@ -42,4 +42,4 @@ def enumeration(values):
 # Code that allows this file to be executed as a CL utility accepting
 # command line arguments
 if __name__ == "__main__":
-  print(enumeration([int(x) for x in sys.argv[1:]]))
+  print(enumeration([int(x) for x in argv[1:]]))
