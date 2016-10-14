@@ -25,7 +25,9 @@ def enumeration(values):
     # Inner for loop that explores the remaining array for the max sub-array
     for j in range(i, len(values)):
       cur_sum = 0
-
+      
+      # Inner for loop that explores the currently bounded sub-array between
+      # indices i and j
       for k in range(i, j + 1):
         cur_sum += values[k]
   
