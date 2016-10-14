@@ -188,6 +188,23 @@ def runTestCases():
     outFil.close()
 
                 
+def runCustomTestCases():
+#-------------------------------------------------------------------------------
+# Description:      Runs test cases.
+# Receives:         Nothing.
+# Returns:          Nothing.
+# Preconditions:    None.
+# ------------------------------------------------------------------------------
+
+    inFil = open("MSS_Custom_TestProblems.txt", 'r')
+    outFil = open("MSS_Custom_TestResults.txt", 'w')
+
+    runInputsThru(inFil, outFil, 0b11111)
+
+    inFil.close()
+    outFil.close()
+
+                
 def solveProblems():
 #-------------------------------------------------------------------------------
 # Description:      Solves assigned problems.
@@ -421,6 +438,7 @@ def main():
 # ------------------------------------------------------------------------------
     
     runTestCases()
+    runCustomTestCases()
     solveProblems()
     runExperiment()
     runAnalysis()
