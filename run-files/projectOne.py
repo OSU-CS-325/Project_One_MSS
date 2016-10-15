@@ -341,7 +341,7 @@ def runExperiment():
 
     #---- enumeration ----------------------------------
     name = "enumeration"
-    n = 10 # 160 # use this value to get >= 60 sec for highest n
+    n = 160 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -353,12 +353,12 @@ def runExperiment():
         result.append(totalRunTime / float(10))
         results.append(result)
         sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
-        n += 10 # 160 # use this value to get >= 60 sec highest n
+        n += 160 # use this value to get >= 60 sec highest n
 
     #---- better-enumeration ---------------------------
     name = "better-enumeration"
-    n = 10 # 3600 # use this value to get >= 60 sec for highest n
-    for i in range(0, 10): # 10 different sizes of n
+    n = 3600 # use this value to get >= 60 sec for highest n
+    for i in range(0, 2): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
             runTime = runInputsThruNoFil(randomList(n), 0b01000)
@@ -369,11 +369,11 @@ def runExperiment():
         result.append(totalRunTime / float(10))
         results.append(result)
         sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
-        n += 10 # 3600 # use this value to get >= 60 sec for highest n
+        n += 3600 # use this value to get >= 60 sec for highest n
 
     #---- divide-and-conquer----------------------------
     name = "divide-and-conquer"
-    n = 10
+    n = 1100000 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -385,11 +385,11 @@ def runExperiment():
         result.append(totalRunTime / float(10))
         results.append(result)
         sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
-        n += 10
+        n += 1100000 # use this value to get >= 60 sec for highest n
 
     #---- linear-time ----------------------------------
     name = "linear-time"
-    n = 10 # 37500000 # use this value to get >= 60 sec for highest n
+    n = 37500000 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -401,7 +401,7 @@ def runExperiment():
         result.append(totalRunTime / float(10))
         results.append(result)
         sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
-        n += 10 # 37500000 # use this value to get >= 60 sec for highest n
+        n += 37500000 # use this value to get >= 60 sec for highest n
 
     #---- test-debug -----------------------------------
     # create input file with random inputs
@@ -431,17 +431,17 @@ def main():
 # Preconditions:    None.
 # ------------------------------------------------------------------------------
     
-    print "running test cases provided with assignment..."
-    runTestCases()
+    #print "running test cases provided with assignment..."
+    #runTestCases()
     
-    print "running extra test cases created as part of assignment..."
-    runCustomTestCases()
+    #print "running extra test cases created as part of assignment..."
+    #runCustomTestCases()
     
-    print "solving problems provided with assignment..."
+    #print "solving problems provided with assignment..."
     solveProblems()
     
-    print "running experiments to generate runtimes as a function of input size..."
-    runExperiment()
+    #print "running experiments to generate runtimes as a function of input size..."
+    #runExperiment()
     
 # ------------------------------------------------------------
 if __name__ == "__main__":
