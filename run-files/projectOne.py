@@ -25,6 +25,7 @@ from alg2 import betterEnumeration
 
 sys.path.insert(0, "./../divide-and-conquer")
 import alg3
+from alg3 import enumer_d_and_c
 
 sys.path.insert(0, "./../linear-time")
 import alg4
@@ -136,13 +137,13 @@ def runInputsThru(inFil, outFil, algsToRun):
         outFil.write("\n")
         outFil.write("\n")
 
-        #for j in range(len(testLists)):
-        #    start = datetime.datetime.now()
-        #    retVal, retList = insertFunctionName(testLists[j])
-        #    end = datetime.datetime.now()
-        #    delta = end - start
-        #    delta = int(delta.total_seconds() * 1000000) 
-        #    printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
+        for j in range(len(testLists)):
+            start = datetime.datetime.now()
+            retVal, retList = enumer_d_and_c(testLists[j])
+            end = datetime.datetime.now()
+            delta = end - start
+            delta = int(delta.total_seconds() * 1000000) 
+            printAlgorithmIO(testLists[j], retList, retVal, delta, outFil)
                 
     if (algsToRun & 0b00010):
         outFil.write("---- linear-time ----------------------------------")
@@ -205,6 +206,11 @@ def runInputsThruNoFil(inputList, algToRun):
         end = datetime.datetime.now()
         delta = end - start
         delta = int(delta.total_seconds() * 1000000) 
+        print str(algToRun)           #debug only
+        print str(len(inputList))     #debug only            
+        print str(start)              #debug only
+        print str(end)                #debug only
+        print str(delta / 1000000)    #debug only
         return delta
                 
     elif (algToRun & 0b01000):
@@ -215,17 +221,27 @@ def runInputsThruNoFil(inputList, algToRun):
         end = datetime.datetime.now()
         delta = end - start
         delta = int(delta.total_seconds() * 1000000) 
+        print str(algToRun)           #debug only
+        print str(len(inputList))     #debug only            
+        print str(start)              #debug only
+        print str(end)                #debug only
+        print str(delta / 1000000)    #debug only
         return delta
                 
-    #elif (algToRun & 0b00100):
+    elif (algToRun & 0b00100):
         #outFil.write("---- divide-and-conquer----------------------------")
 
-        #start = datetime.datetime.now()
-        #retVal, retList = insertFunctionName(inputList)
-        #end = datetime.datetime.now()
-        #delta = end - start
-        #delta = int(delta.total_seconds() * 1000000) 
-        #return delta
+        start = datetime.datetime.now()
+        retVal, retList = enumer_d_and_c(inputList)
+        end = datetime.datetime.now()
+        delta = end - start
+        delta = int(delta.total_seconds() * 1000000) 
+        print str(algToRun)           #debug only
+        print str(len(inputList))     #debug only            
+        print str(start)              #debug only
+        print str(end)                #debug only
+        print str(delta / 1000000)    #debug only
+        return delta
                 
     elif (algToRun & 0b00010):
         #outFil.write("---- linear-time ----------------------------------")
@@ -235,13 +251,13 @@ def runInputsThruNoFil(inputList, algToRun):
         end = datetime.datetime.now()
         delta = end - start
         delta = int(delta.total_seconds() * 1000000)
+        print str(algToRun)           #debug only
+        print str(len(inputList))     #debug only            
+        print str(start)              #debug only
+        print str(end)                #debug only
+        print str(delta / 1000000)    #debug only
         return delta 
 
-        #print str(len(testLists[j]))  #debug only            
-        #print str(start)              #debug only
-        #print str(end)                #debug only
-        #print str(delta / 1000000)    #debug only
-    
     elif (algToRun & 0b00001):
         #outFil.write("---- test-debug------------------------------------")
 
@@ -250,6 +266,11 @@ def runInputsThruNoFil(inputList, algToRun):
         end = datetime.datetime.now()
         delta = end - start
         delta = int(delta.total_seconds() * 1000000) 
+        print str(algToRun)           #debug only
+        print str(len(inputList))     #debug only            
+        print str(start)              #debug only
+        print str(end)                #debug only
+        print str(delta / 1000000)    #debug only
         return delta
 
     else:
@@ -339,7 +360,7 @@ def runExperiment():
 
     #---- enumeration ----------------------------------
     name = "enumeration"
-    n = 10 #160 use this value to get >= 60 sec for highest n
+    n = 10 # 160 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -350,11 +371,11 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
-        n += 10 #160 use this value to get >= 60 sec highest n
+        n += 10 # 160 # use this value to get >= 60 sec highest n
 
     #---- better-enumeration ---------------------------
     name = "better-enumeration"
-    n = 10 #3600 use this value to get >= 60 sec for highest n
+    n = 10 # 3600 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -365,7 +386,7 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
-        n += 10 #3600 use this value to get >= 60 sec for highest n
+        n += 10 # 3600 # use this value to get >= 60 sec for highest n
 
     #---- divide-and-conquer----------------------------
     name = "divide-and-conquer"
@@ -384,7 +405,7 @@ def runExperiment():
 
     #---- linear-time ----------------------------------
     name = "linear-time"
-    n = 10 #3600 use this value to get >= 60 sec for highest n
+    n = 37500000 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -395,7 +416,7 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
-        n += 10 #3600 use this value to get >= 60 sec for highest n
+        n += 37500000 # use this value to get >= 60 sec for highest n
 
     #---- test-debug -----------------------------------
     # create input file with random inputs
