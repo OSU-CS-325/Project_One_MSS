@@ -1,0 +1,51 @@
+DIVIDE_AND_CONQUER(A[1,...,N]){
+    if N == 0 {
+        return 0, A
+    } else if N == 1 {
+        return A[0], A
+    }
+
+    tmp_max = 0
+    mid_max = 0
+    mid_start = 0
+    mid_end = 0
+
+    left_max = 0
+    right_max = 0
+
+    midpoint = N / 2
+
+    mid_start = midpoint
+    mid_end = midpoint
+
+    for i from A[N,...,midpoint] {
+        tmp_max = tmp_max + A[i]
+        if tmp_max > left_max {
+            left_max = tmp_max
+            mid_start = i
+        }
+    }
+
+    tmp_max = 0
+
+    for i from A[midpoint,...,N] {
+        tmp_max = tmp_max + A[i]
+        if tmp_max > right_max {
+            right_max = tmp_max
+            mid_end = i + 1
+        }
+    }
+
+    mid_max = left_max + right_max
+
+    left_max, left_subarray = DIVIDE_AND_CONQUER(A[0,...,midpoint])
+    right_max, right_subarray = DIVIDE_AND_CONQUER(A[midpoint,...,N])
+
+    if mid_max >= left_max and mid_max >= right_max {
+        return mid_max, A[mid_start,...,mid_end]
+    } else if left_max >= right_max and left_max > mid_max {
+        return left_max, left_subarray
+    } else if right_max > left_max and right_max > mid_max {
+        return right_max, right_subarray
+    }
+}
