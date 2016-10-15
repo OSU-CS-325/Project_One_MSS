@@ -327,27 +327,6 @@ def solveProblems():
     outFil.close()
 
 
-def analysisHelper(resultsList):
-#------------------------------------------------------------------------------
-# Description:      Writes results to summary CSV file.
-# Receives:         2-D list of results.
-# Returns:          Nothing.
-# Preconditions:    Each element of resultsList should be [alg, n, runTime].
-# ------------------------------------------------------------------------------
-
-    print "consolidating experimental outputs into csv formatted file..."
-    
-    sumFil = open("MSS_ExpAnlys_Results.csv", 'w')
-
-    resultsList = sorted(resultsList, key=lambda x: (x[0], x[1]))
-
-    sumFil.write("algorithm,n,avgRunTime\n")
-    for result in resultsList:
-      sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
-
-    sumFil.close()
-
- 
 def runExperiment():
 #-------------------------------------------------------------------------------
 # Description:      Runs 'experiment' part of experimental analysis.
@@ -357,6 +336,8 @@ def runExperiment():
 # ------------------------------------------------------------------------------
     
     results = []
+    sumFil = open("MSS_ExpAnlys_Results.csv", 'w')
+    sumFil.write("algorithm,n,avgRunTime\n")
 
     #---- enumeration ----------------------------------
     name = "enumeration"
@@ -371,6 +352,7 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
+        sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
         n += 10 # 160 # use this value to get >= 60 sec highest n
 
     #---- better-enumeration ---------------------------
@@ -386,6 +368,7 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
+        sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
         n += 10 # 3600 # use this value to get >= 60 sec for highest n
 
     #---- divide-and-conquer----------------------------
@@ -401,11 +384,12 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
+        sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
         n += 10
 
     #---- linear-time ----------------------------------
     name = "linear-time"
-    n = 37500000 # use this value to get >= 60 sec for highest n
+    n = 10 # 37500000 # use this value to get >= 60 sec for highest n
     for i in range(0, 10): # 10 different sizes of n
         totalRunTime = 0
         for j in range(0, 10): # 10 different random lists of size n
@@ -416,7 +400,8 @@ def runExperiment():
         result.append(n)
         result.append(totalRunTime / float(10))
         results.append(result)
-        n += 37500000 # use this value to get >= 60 sec for highest n
+        sumFil.write(result[0] + "," + str(result[1]) + "," + str(result[2]) + "\n") 
+        n += 10 # 37500000 # use this value to get >= 60 sec for highest n
 
     #---- test-debug -----------------------------------
     # create input file with random inputs
@@ -434,8 +419,7 @@ def runExperiment():
     #    results.append(result)
     #    n += 10
 
-    #---- write output ---------------------------------
-    analysisHelper(results)
+    sumFil.close()
 
 
 def main():
