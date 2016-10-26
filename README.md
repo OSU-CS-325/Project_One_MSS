@@ -1,42 +1,31 @@
-Project One: Maximum Sub-Array Summation
-===
+(1) Put file "cs325_Group12_ProjectOne.tar.bz2" in an empty directory on FLIP
 
-- In the specific folders for each algorithm
-    - Python function
-        - Input parameter: Array of ints
-        - Return value: Single int of max subarray sum
-    - Text file with pseudocode
-    - Analysis of theoretical asymptotic runtimes
+(2) Navigate to that directory
 
+(3) Type the following command:
+    
+tar -xvf cs325_Group12_ProjectOne.tar.bz2
+    
+(4) You should see the following directories/files:
 
-- Top level folder
-    - (0) Main code
-        - Run MSS_Problems.txt through each function
-        - Compile results into MSS_Results.txt
-    - (1) Test Suite code
-        - Run test cases through each function 
-    - (2) Experimental Analysis code 
-        - Generate random input arrays for experimental analysis
-        - Run random input arrays through each function
-            - I/O and array generation aren't clocked
-        - Generate plots of average experimental run times
-        - Generate curve fits of experimental run time
+./enumeration/alg1.py             - Contains python code for the 'enumeration' algorithm
+./better-enumeration/alg2.py      - Contains python code for the 'better-enumeration' algorithm
+./divide-and-conquer/alg3.py      - Contains python code for the 'divide-and-conquer' algorithm
+./linear-time/alg4.py             - Contains python code for the 'linear-time' algorithm
+./run-files/testAlg.py            - Miscellaneous code
+./run-files/projectOne.py         - Contains python code to run inputs through algorithms and create outputs
+                                    Also runs tests and experimental analysis (commented out)
+./run-files/runProjectOne.sh      - Shell script for running the code
+./run-files/MSS_Problems.txt      - Input file provided with the assignment
+./run-files/MSS_Results.txt       - Output file containing (for each input array for each algorithm):
+                                    - The input array
+                                    - Size of input array
+                                    - Max sum subarray
+                                    - Max sum
+                                    - Runtime in 10^-6 seconds
 
+(5) Navigate to the "run-files" directory
 
-- File Summary
-    - 3 Python files in top level
-        - MSS_Problems.txt --> MSS_Results.txt, Test Suite, Experimental Analysis
-    - 4 Python files for Algorithms
-        - Enumeration, "Better Enumeration", Divide-and-Conquer, Dynamic Programming
+(6) Type the following command to run the code and produce your own copy of 'MSS_Results.txt':
 
-
-- Deliverables by Thursday night:
-    - Alex: Algorithms 1 and 3
-        - Python Code
-        - Pseudo-code
-        - Theoretical runtime analysis
-    - Kyle: Algorithms 2 and 4
-        - Python Code
-        - Pseudo-code
-        - Theoretical runtime analysis
-    - Cash: Top level code
+./runProjectOne.sh
